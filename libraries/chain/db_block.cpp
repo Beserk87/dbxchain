@@ -204,7 +204,12 @@ bool database::_push_block(const signed_block& new_block)
 
    try {
       auto session = _undo_db.start_undo_session();
-      apply_block(new_block, skip);
+
+	  //liruiang 20180823 add : remove skip_witness_schedule_check
+	  apply_block(new_block, skip | skip_witness_schedule_check);
+
+	  //liruiang 20180823 remove
+	  //apply_block(new_block, skip);
       _block_id_to_block.store(new_block.id(), new_block);
       session.commit();
    } catch ( const fc::exception& e ) {
@@ -580,6 +585,9 @@ processed_transaction database::_apply_transaction(const signed_transaction& trx
    transaction_evaluation_state eval_state(this);
    const chain_parameters& chain_parameters = get_global_properties().parameters;
    eval_state._trx = &trx;
+
+   //liruigang 20180813 remove basic fee calc
+   eval_state.skip_fee_schedule_check = true;
 
    if( !(skip & (skip_transaction_signatures | skip_authority_check) ) )
    {

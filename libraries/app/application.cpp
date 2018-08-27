@@ -166,24 +166,9 @@ void application_impl::reset_p2p_node(const fc::path& data_dir)
    {
       // https://bitsharestalk.org/index.php/topic,23715.0.html
       vector<string> seeds = {
-         "104.236.144.84:1777",               // puppies      (USA)
-         "128.199.143.47:2015",               // Harvey       (Singapore)
-         "23.92.53.182:1776",                 // sahkan       (USA)
-         "192.121.166.162:1776",              // sahkan       (UK)
-         "51.15.61.160:1776",                 // lafona       (France)
-         "bts-seed1.abit-more.com:62015",     // abit         (China)
-         "node.blckchnd.com:4243",            // blckchnd     (Germany)
-         "seed.bitsharesdex.com:50696",       // iHashFury    (Europe)
-         "seed.bitsharesnodes.com:1776",      // wackou       (Netherlands)
-         "seed.blocktrades.us:1776",          // BlockTrades  (USA)
-         "seed.cubeconnex.com:1777",          // cube         (USA)
-         "seed.roelandp.nl:1776",             // roelandp     (Canada)
-         "seed04.bts-nodes.net:1776",         // Thom         (Australia)
-         "seed05.bts-nodes.net:1776",          // Thom         (USA)
-         "seed06.bts-nodes.net:1776",          // Thom         (USA)
-         "seed07.bts-nodes.net:1776",          // Thom         (Singapore)
-         "seeds.bitshares.eu:1776"            // pc           (http://seeds.quisquis.de/bitshares.html)
-      };
+		  "13.230.35.24:38090",               // aws
+		  "18.182.40.191:38090"               // aws
+	  };
       for( const string& endpoint_string : seeds )
       {
          try {
@@ -354,6 +339,7 @@ void application_impl::startup()
             modified_genesis = true;
             std::cerr << "Set init witness key to " << init_key << "\n";
          }
+
          if( modified_genesis )
          {
             std::cerr << "WARNING:  GENESIS WAS MODIFIED, YOUR CHAIN ID MAY BE DIFFERENT\n";
@@ -361,7 +347,10 @@ void application_impl::startup()
             genesis.initial_chain_id = fc::sha256::hash( genesis_str );
          }
          else
-            genesis.initial_chain_id = fc::sha256::hash( genesis_str );
+		   //liruigang 20180719 chain id null hash
+           genesis.initial_chain_id = fc::sha256::hash( "" );
+           //genesis.initial_chain_id = fc::sha256::hash( genesis_str );
+
          return genesis;
       }
       else

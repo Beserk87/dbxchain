@@ -51,7 +51,9 @@
 #define GRAPHENE_DEFAULT_MAINTENANCE_SKIP_SLOTS 3  // number of slots to skip for maintenance interval
 
 #define GRAPHENE_MIN_UNDO_HISTORY 10
-#define GRAPHENE_MAX_UNDO_HISTORY 10000
+//liruigang 20180821
+#define GRAPHENE_MAX_UNDO_HISTORY 100000
+//#define GRAPHENE_MAX_UNDO_HISTORY 10000
 
 #define GRAPHENE_MIN_BLOCK_SIZE_LIMIT (GRAPHENE_MIN_TRANSACTION_SIZE_LIMIT*5) // 5 transactions per block
 #define GRAPHENE_MIN_TRANSACTION_EXPIRATION_LIMIT (GRAPHENE_MAX_BLOCK_INTERVAL * 5) // 5 transactions per block
@@ -112,6 +114,11 @@
 #define GRAPHENE_MAX_WORKER_NAME_LENGTH                       63
 
 #define GRAPHENE_MAX_URL_LENGTH                               127
+
+//liruigang 20180816 operate type
+#define DBX_ADD_BLACKLIST	0
+#define DBX_TRANSFER	1
+#define DBX_FEE_CALC	2
 
 // counter initialization values used to derive near and far future seeds for shuffling witnesses
 // we use the fractional bits of sqrt(2) in hex
